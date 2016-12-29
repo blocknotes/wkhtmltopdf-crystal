@@ -11,8 +11,15 @@ html = <<-END
 END
 
 img = Wkhtmltopdf::WkImage.new
-img.set "format", "png"
-img.set "screenWidth", "800"
-img.set "transparent", "true"
 img.set_output "test.png"
+
+## The output format to use, must be either "", "jpg", "png", "bmp" or "svg":
+img.set "fmt", "png"
+## The compression factor to use when outputting a JPEG image. E.g. "94":
+# img.set "quality", "75"
+## The with of the screen used to render is pixels, e.g "800":
+img.set "screenWidth", "800"
+## When outputting a PNG or SVG, make the white background transparent. Must be either "true" or "false"
+img.set "transparent", "true"
+
 img.convert html
