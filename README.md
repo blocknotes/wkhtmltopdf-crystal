@@ -11,7 +11,7 @@ wkhtmltopdf and wkhtmltoimage permit to render HTML into PDF and various image f
 
 ## Installation
 
-- Copy *wkhtmltox.pc* inside one of pkg-config paths (ex. /usr/local/lib/pkgconfig)
+- Copy *wkhtmltox.pc* in a pkg-config folder (ex. /usr/local/lib/pkgconfig)
 - Or execute before compiling (from wkhtmltopdf shard folder): ```export PKG_CONFIG_PATH="`pwd`"```
 - Add this to your application's `shard.yml`:
 
