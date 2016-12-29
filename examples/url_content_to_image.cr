@@ -6,7 +6,7 @@
 require "wkhtmltopdf-crystal"
 
 img = Wkhtmltopdf::WkImage.new
-img.set_url "http://www.google.com"
+img.set_url "https://crystal-lang.org"
 img.set_output "test.jpg"
 img.set "format", "jpg"
 img.set "quality", "75"

@@ -6,6 +6,6 @@
 require "wkhtmltopdf-crystal"
 
 pdf = Wkhtmltopdf::WkPdf.new "test.pdf"
-pdf.set_url "http://www.google.com"
+pdf.set_url "https://crystal-lang.org"
 # pdf.object_setting "web.loadImages", "false" # skip images
 pdf.convert
