@@ -16,7 +16,7 @@ wkhtmltopdf and wkhtmltoimage permits to render HTML into PDF and various image 
 
 ```
 dependencies:
-  wkhtmltopdf:
+  wkhtmltopdf-crystal:
     github: blocknotes/wkhtmltopdf-crystal
 ```
 

@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkImage wrapper to render an HTML string to image
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 
 html = <<-END
 <h1>Lorem!</h1>

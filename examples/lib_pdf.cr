@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using LibWkHtmlToPdf directly
 # ---------------------------------------------------------------------------- #
-require "../wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 
 puts "[Begin]"
 puts "- Version: " + String.new( LibWkHtmlToPdf.wkhtmltopdf_version )

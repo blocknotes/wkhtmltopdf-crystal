@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkImage wrapper to render a page from URL to image
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 
 img = Wkhtmltopdf::WkImage.new
 img.set_url "http://www.google.com"

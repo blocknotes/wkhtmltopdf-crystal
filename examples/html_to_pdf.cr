@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkPdf wrapper to render an HTML string to PDF
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 
 html = <<-END
 <h1>Lorem!</h1>
