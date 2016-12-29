@@ -7,14 +7,14 @@ module Wkhtmltopdf
 
     # Prepare the structure
     def initialize( output = nil )
-      @glb_settings["format"] = "jpg"
+      @glb_settings["fmt"] = "jpg"
       @glb_settings["out"] = output ? output : "output.jpg"
     end
 
     # Set a setting value - see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal)
     def set( key : String, value : String )
       case key
-      when "format"
+      when "fmt"
         @glb_settings[key] = value if FORMATS.includes? value
       when "quality"
         val = value.to_i
