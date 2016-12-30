@@ -3,12 +3,16 @@ module Wkhtmltopdf
     FORMATS = [ "jpg", "png", "bmp", "svg" ]
 
     @glb_settings = Hash( String, String ).new
+    @out = ""
     @url = ""
+    @buffer = nil
+
+    getter :buffer
 
     # Prepare the structure
-    def initialize( output = nil )
+    def initialize( path = "" )
       @glb_settings["fmt"] = "jpg"
-      @glb_settings["out"] = output ? output : "output.jpg"
+      @out = @glb_settings["out"] = path unless path.empty?
     end
 
     # Set a setting value - see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal)
@@ -26,7 +30,10 @@ module Wkhtmltopdf
 
     # Set output path
     def set_output( path : String )
-      set "out", path unless path.empty?
+      unless path.empty?
+        @out = path
+        set "out", path
+      end
     end
 
     # Set URL to fetch content from
@@ -49,6 +56,11 @@ module Wkhtmltopdf
       @converter = LibWkHtmlToImage.wkhtmltoimage_create_converter @global_settings, html
       ## convert
       ret = LibWkHtmlToImage.wkhtmltoimage_convert( @converter )
+      if ret > 0 && @out.empty?
+        # Copy data in buffer
+        len = LibWkHtmlToImage.wkhtmltoimage_get_output( @converter, out data )
+        @buffer = Slice( UInt8 ).new( data, len )
+      end
       ## deinit
       LibWkHtmlToImage.wkhtmltoimage_destroy_converter @converter
       LibWkHtmlToImage.wkhtmltoimage_deinit

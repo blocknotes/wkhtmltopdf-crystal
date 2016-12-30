@@ -6,8 +6,8 @@ Crystal wrapper for C library libwkhtmltox.
 
 ## Requirements
 
-- libwkhtmltox must be installed
-- pkg-config must be available
+- *libwkhtmltox* must be installed
+- *pkg-config* must be available
 
 ## Installation
 
@@ -40,6 +40,18 @@ img.set_url "http://www.google.com"
 img.set_output "test.jpg"
 img.set "quality", "90"
 img.convert
+```
+
+Write to buffer (only if no output is specified):
+
+```ruby
+require "wkhtmltopdf"
+pdf = Wkhtmltopdf::WkPdf.new
+pdf.convert "<h3>Just a test</h3>"
+pdf.object_setting "footer.right", "[page] / [topage]" # Set page counter on footer
+unless pdf.buffer.nil?
+  puts "PDF buffer size: " + pdf.buffer.try( &.size ).to_s
+end
 ```
 
 Lib settings (available with `set` / `object_setting` methods on wrappers): [libwkhtmltox pagesettings](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html)

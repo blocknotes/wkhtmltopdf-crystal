@@ -54,8 +54,13 @@ else
 end
 puts "- http_error_code: " + LibWkHtmlToPdf.wkhtmltopdf_http_error_code( c ).to_s
 
-# len = LibWkHtmlToPdf.wkhtmltopdf_get_output( c, out data ) # out setting must be not set
+## out setting must be not set
+# len = LibWkHtmlToPdf.wkhtmltopdf_get_output( c, out data )
 # puts "- output length: " + len.to_s
+# slice = Slice( UInt8 ).new( data, len )
+# File.open( "test.pdf", "wb" ) do |file|
+#   file.write slice
+# end
 
 LibWkHtmlToPdf.wkhtmltopdf_destroy_converter c
 LibWkHtmlToPdf.wkhtmltopdf_destroy_object_settings os
