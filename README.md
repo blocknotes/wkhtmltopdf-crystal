@@ -11,8 +11,6 @@ wkhtmltopdf and wkhtmltoimage permit to render HTML into PDF and various image f
 
 ## Installation
 
-- Copy *wkhtmltox.pc* in a pkg-config folder (ex. /usr/local/lib/pkgconfig)
-- Or execute before compiling (from wkhtmltopdf shard folder): ```export PKG_CONFIG_PATH="`pwd`"```
 - Add this to your application's `shard.yml`:
 
 ```yml
@@ -20,6 +18,9 @@ dependencies:
   wkhtmltopdf-crystal:
     github: blocknotes/wkhtmltopdf-crystal
 ```
+
+- If wkhtmltox library is installed but missing for Crystal compiler: copy *wkhtmltox.pc* in a pkg-config folder (ex. /usr/local/lib/pkgconfig) or execute before compiling (from wkhtmltopdf shard folder): ```export PKG_CONFIG_PATH="`pwd`"```
+- Optinally edit *wkhtmltox.pc* with the correct path to wkhtmltox (default headers path: /usr/local/include/wkhtmltox)
 
 ## Documentation
 
@@ -45,7 +46,9 @@ img.set "quality", "90"
 img.convert
 ```
 
-See examples folder.
+#### More examples
+
+See [examples](https://github.com/blocknotes/wkhtmltopdf-crystal/tree/master/examples) folder.
 
 ## Contributors
 
