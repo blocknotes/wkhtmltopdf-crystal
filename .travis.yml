@@ -1,0 +1,6 @@
+language: crystal
+before_install:
+  - sudo add-apt-repository ppa:pov/wkhtmltopdf -y
+  - sudo apt-get update -q
+  - sudo apt-get install wkhtmltopdf -y
+  - export PKG_CONFIG_PATH="$TRAVIS_BUILD_DIR/wkhtmltopdf-crystal"
