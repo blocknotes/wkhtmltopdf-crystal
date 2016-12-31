@@ -1,6 +1,6 @@
 # wkhtmltopdf for Crystal
 
-[![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)
+![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)
 
 ---
 
