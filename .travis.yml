@@ -3,3 +3,5 @@ language: crystal
 before_install:
   - wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-precise-amd64.deb
   - sudo dpkg -i wkhtmltox-0.12.2.1_linux-precise-amd64.deb
+  - export PKG_CONFIG_PATH="$TRAVIS_BUILD_DIR/wkhtmltopdf-crystal"
+  - echo $PKG_CONFIG_PATH
