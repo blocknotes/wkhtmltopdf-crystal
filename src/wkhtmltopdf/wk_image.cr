@@ -1,5 +1,6 @@
 module Wkhtmltopdf
   class WkImage
+    # Output formats available
     FORMATS = [ "jpg", "png", "bmp", "svg" ]
 
     @glb_settings = Hash( String, String ).new
@@ -7,15 +8,23 @@ module Wkhtmltopdf
     @url = ""
     @buffer = nil
 
+    # Buffer used for in-memory generation (available if no output is specified)
     getter :buffer
 
-    # Prepare the structure
+    # Init default values
+    #
+    # - `path`: string with an output file path (extension included)
     def initialize( path = "" )
       @glb_settings["fmt"] = "jpg"
-      @out = @glb_settings["out"] = path unless path.empty?
+      set_output path
     end
 
-    # Set a setting value - see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal)
+    # Set an option
+    #
+    # - `key`: string with key name
+    # - `value`: string with setting value
+    #
+    # NOTE: for available settings see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal)
     def set( key : String, value : String )
       case key
       when "fmt"
@@ -29,6 +38,8 @@ module Wkhtmltopdf
     end
 
     # Set output path
+    #
+    # - `path`: string with an output file path (extension included)
     def set_output( path : String )
       unless path.empty?
         @out = path
@@ -37,6 +48,8 @@ module Wkhtmltopdf
     end
 
     # Set URL to fetch content from
+    #
+    # - `url`: string with a complete URL (schema included)
     def set_url( url : String )
       unless url.empty?
         @url = url
@@ -44,7 +57,9 @@ module Wkhtmltopdf
       end
     end
 
-    # Start convertion - if `html` is omitted (nil) a URL to fetch is required
+    # Convert to image
+    #
+    # - `html`: HTML string used as content, if omitted (or nil) a URL to fetch is required (using `set_url`)
     def convert( html = nil )
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
       ## init

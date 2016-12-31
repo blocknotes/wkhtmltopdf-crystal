@@ -1,7 +1,7 @@
 # ---------------------------------------------------------------------------- #
-# Example:     in_memory_pdf
+# Example:     in_memory
 # Author:      Mat
-# Description: Using WkPdf wrapper
+# Description: Using WkPdf and WkImage wrappers to fill in-memory buffer
 # ---------------------------------------------------------------------------- #
 require "wkhtmltopdf-crystal"
 

@@ -62,7 +62,7 @@ Lib settings (available with `set` / `object_setting` methods on wrappers): [lib
 
 ## More examples
 
-See [examples](https://github.com/blocknotes/wkhtmltopdf-crystal/tree/master/examples) folder.
+See [examples](https://github.com/blocknotes/wkhtmltopdf-crystal/tree/master/examples) folder. Includes a Kemal example to print an ECR view in PDF.
 
 ## Contributors
 

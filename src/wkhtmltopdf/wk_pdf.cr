@@ -6,24 +6,39 @@ module Wkhtmltopdf
     @url = ""
     @buffer = nil
 
+    # Buffer used for in-memory generation (available if no output is specified)
     getter :buffer
 
-    # Prepare the structure
+    # Init default values
+    #
+    # - `path`: string with an output file path (extension included)
     def initialize( path = "" )
-      @out = @glb_settings["out"] = path unless path.empty?
+      set_output path
     end
 
-    # Pdf object settings - see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pagePdfObject)
+    # Pdf object settings
+    #
+    # - `key`: string with key name
+    # - `value`: string with setting value
+    #
+    # NOTE: for available settings see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pagePdfObject)
     def object_setting( key : String, value : String )
       @obj_settings[key] = value
     end
 
-    # Pdf global settings - see [pagePdfGlobal](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pagePdfGlobal)
+    # Pdf global settings
+    #
+    # - `key`: string with key name
+    # - `value`: string with setting value
+    #
+    # NOTE: for available settings see [pagePdfGlobal](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pagePdfGlobal)
     def set( key : String, value : String )
       @glb_settings[key] = value
     end
 
     # Set output path
+    #
+    # - `path`: string with an output file path (extension included)
     def set_output( path : String )
       unless path.empty?
         @out = path
@@ -32,6 +47,8 @@ module Wkhtmltopdf
     end
 
     # Set URL to fetch content from
+    #
+    # - `url`: string with a complete URL (schema included)
     def set_url( url : String )
       unless url.empty?
         @url = url
@@ -39,7 +56,9 @@ module Wkhtmltopdf
       end
     end
 
-    # Start convertion - if `html` is omitted (nil) a URL to fetch is required
+    # Convert to PDF
+    #
+    # - `html`: HTML string used as content, if omitted (or nil) a URL to fetch is required (using `set_url`)
     def convert( html = nil )
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
       # init
