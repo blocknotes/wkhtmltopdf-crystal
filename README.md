@@ -1,10 +1,6 @@
-# wkhtmltopdf for Crystal
+# WkHtmlToPdf for Crystal [![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal)
 
-[![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal)
-
----
-
-Crystal wrapper for C library libwkhtmltox.
+Crystal wrapper for libwkhtmltox C library.
 
 *wkhtmltopdf* and *wkhtmltoimage* permit to render HTML into PDF and various image formats using the Qt WebKit rendering engine - see [wkhtmltopdf.org](http://wkhtmltopdf.org)
 
