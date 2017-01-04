@@ -18,6 +18,7 @@ END
 
   it "should convert HTML to JPG" do
     output = "/tmp/test.jpg"
+    File.delete output rescue nil
     wk = Wkhtmltopdf::WkImage.new output
     wk.set "quality", "75"
     ret = wk.convert html

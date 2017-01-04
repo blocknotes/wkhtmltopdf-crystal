@@ -64,20 +64,22 @@ module Wkhtmltopdf
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
       ## init
       LibWkHtmlToImage.wkhtmltoimage_init 0
-      @global_settings = LibWkHtmlToImage.wkhtmltoimage_create_global_settings
-      @glb_settings.each do |k, v|
-        LibWkHtmlToImage.wkhtmltoimage_set_global_setting @global_settings, k, v
-      end
-      @converter = LibWkHtmlToImage.wkhtmltoimage_create_converter @global_settings, html
-      ## convert
-      ret = LibWkHtmlToImage.wkhtmltoimage_convert( @converter )
-      if ret > 0 && @out.empty?
-        # Copy data in buffer
-        len = LibWkHtmlToImage.wkhtmltoimage_get_output( @converter, out data )
-        @buffer = Slice( UInt8 ).new( data, len )
+      if( settings = LibWkHtmlToImage.wkhtmltoimage_create_global_settings )
+        @glb_settings.each do |k, v|
+          LibWkHtmlToImage.wkhtmltoimage_set_global_setting settings, k, v
+        end
+        if( converter = LibWkHtmlToImage.wkhtmltoimage_create_converter settings, html )
+          ## convert
+          ret = LibWkHtmlToImage.wkhtmltoimage_convert( converter )
+          if ret > 0 && @out.empty?
+            # Copy data in buffer
+            len = LibWkHtmlToImage.wkhtmltoimage_get_output( converter, out data )
+            @buffer = Slice( UInt8 ).new( data, len )
+          end
+          LibWkHtmlToImage.wkhtmltoimage_destroy_converter converter
+        end
       end
       ## deinit
-      LibWkHtmlToImage.wkhtmltoimage_destroy_converter @converter
       LibWkHtmlToImage.wkhtmltoimage_deinit
       ret
     end

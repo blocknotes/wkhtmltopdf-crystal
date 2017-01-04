@@ -4,7 +4,7 @@
 # Description: Using WkPdf wrapper
 # ---------------------------------------------------------------------------- #
 require "kemal"
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 get "/" do |env|
   html = render "kemal_ecr_to_pdf.ecr"

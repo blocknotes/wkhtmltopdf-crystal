@@ -63,27 +63,30 @@ module Wkhtmltopdf
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
       # init
       LibWkHtmlToPdf.wkhtmltopdf_init 0
-      @global_settings = LibWkHtmlToPdf.wkhtmltopdf_create_global_settings
-      @glb_settings.each do |k, v|
-        LibWkHtmlToPdf.wkhtmltopdf_set_global_setting @global_settings, k, v
+      if( g_settings = LibWkHtmlToPdf.wkhtmltopdf_create_global_settings )
+        @glb_settings.each do |k, v|
+          LibWkHtmlToPdf.wkhtmltopdf_set_global_setting g_settings, k, v
+        end
+        if( o_settings = LibWkHtmlToPdf.wkhtmltopdf_create_object_settings )
+          @obj_settings.each do |k, v|
+            LibWkHtmlToPdf.wkhtmltopdf_set_object_setting o_settings, k, v
+          end
+          if( converter = LibWkHtmlToPdf.wkhtmltopdf_create_converter g_settings )
+            # convert
+            LibWkHtmlToPdf.wkhtmltopdf_add_object converter, o_settings, html
+            ret = LibWkHtmlToPdf.wkhtmltopdf_convert( converter )
+            if ret > 0 && @out.empty?
+              # Copy data in buffer
+              len = LibWkHtmlToPdf.wkhtmltopdf_get_output( converter, out data )
+              @buffer = Slice( UInt8 ).new( data, len )
+            end
+            # deinit
+            LibWkHtmlToPdf.wkhtmltopdf_destroy_converter converter
+          end
+          LibWkHtmlToPdf.wkhtmltopdf_destroy_object_settings o_settings
+        end
+        LibWkHtmlToPdf.wkhtmltopdf_destroy_global_settings g_settings
       end
-      @object_settings = LibWkHtmlToPdf.wkhtmltopdf_create_object_settings
-      @obj_settings.each do |k, v|
-        LibWkHtmlToPdf.wkhtmltopdf_set_object_setting @object_settings, k, v
-      end
-      @converter = LibWkHtmlToPdf.wkhtmltopdf_create_converter @global_settings
-      # convert
-      LibWkHtmlToPdf.wkhtmltopdf_add_object @converter, @object_settings, html
-      ret = LibWkHtmlToPdf.wkhtmltopdf_convert( @converter )
-      if ret > 0 && @out.empty?
-        # Copy data in buffer
-        len = LibWkHtmlToPdf.wkhtmltopdf_get_output( @converter, out data )
-        @buffer = Slice( UInt8 ).new( data, len )
-      end
-      # deinit
-      LibWkHtmlToPdf.wkhtmltopdf_destroy_converter @converter
-      LibWkHtmlToPdf.wkhtmltopdf_destroy_object_settings @object_settings
-      LibWkHtmlToPdf.wkhtmltopdf_destroy_global_settings @global_settings
       LibWkHtmlToPdf.wkhtmltopdf_deinit
       ret
     end

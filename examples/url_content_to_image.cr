@@ -3,11 +3,11 @@
 # Author:      Mat
 # Description: Using WkImage wrapper to render a page from URL to image
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 img = Wkhtmltopdf::WkImage.new
 img.set_url "https://crystal-lang.org"
-img.set_output "test.jpg"
+img.set_output "url_content_to_image.jpg"
 
 img.set "fmt", "jpg"
 img.set "quality", "75"

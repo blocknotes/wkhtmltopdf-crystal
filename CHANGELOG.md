@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.6
+- Internal improvements
+
 ## 0.1.5
 - Minor improvements
 

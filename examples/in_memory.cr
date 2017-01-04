@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkPdf and WkImage wrappers to fill in-memory buffer
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 html = <<-END
 <h1>Lorem!</h1>
@@ -15,7 +15,7 @@ pdf = Wkhtmltopdf::WkPdf.new
 pdf.convert html
 if( buf = pdf.buffer )
   puts "PDF buffer size: " + buf.try( &.size ).to_s
-  File.open( "test.pdf", "wb" ) do |file|
+  File.open( "in_memory.pdf", "wb" ) do |file|
     file.write buf
   end
 end
@@ -24,7 +24,7 @@ img = Wkhtmltopdf::WkImage.new
 img.convert html
 if( buf = img.buffer )
   puts "Image buffer size: " + buf.try( &.size ).to_s
-  File.open( "test.jpg", "wb" ) do |file|
+  File.open( "in_memory.jpg", "wb" ) do |file|
     file.write buf
   end
 end

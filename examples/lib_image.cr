@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using LibWkHtmlToImage directly
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 puts "[Begin]"
 puts "- Version: " + String.new( LibWkHtmlToImage.wkhtmltoimage_version )
@@ -16,7 +16,7 @@ LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "fmt", fmt
 LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "quality", "90"
 # LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "screenWidth", "2048"
 LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "in", "http://www.google.com/"
-LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "out", "out." + fmt
+LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "out", "lib_image." + fmt
 
 ### The wkhtmltoimage_global_settings structure contains the following settings:
 # - crop.left: left/x coordinate of the window to capture in pixels. E.g. "200"
@@ -37,23 +37,23 @@ LibWkHtmlToImage.wkhtmltoimage_set_global_setting gs, "out", "out." + fmt
 c = LibWkHtmlToImage.wkhtmltoimage_create_converter gs, nil
 
 # Callbacks
-LibWkHtmlToImage.wkhtmltoimage_set_warning_callback c, ->( converter : Void*, param : LibC::Char* ) do
+LibWkHtmlToImage.wkhtmltoimage_set_warning_callback c, ->( converter : LibWkHtmlToImage::WkhtmltoimageConverter, param : LibC::Char* ) do
   puts "> warning callback (#{param}): " + String.new( param )
 end
-LibWkHtmlToImage.wkhtmltoimage_set_error_callback c, ->( converter : Void*, param : LibC::Char* ) do
+LibWkHtmlToImage.wkhtmltoimage_set_error_callback c, ->( converter : LibWkHtmlToImage::WkhtmltoimageConverter, param : LibC::Char* ) do
   puts "> error callback (#{param}): " + String.new( param )
 end
-LibWkHtmlToImage.wkhtmltoimage_set_phase_changed_callback c, ->( converter : Void* ) do
+LibWkHtmlToImage.wkhtmltoimage_set_phase_changed_callback c, ->( converter : LibWkHtmlToImage::WkhtmltoimageConverter ) do
   phase = LibWkHtmlToImage.wkhtmltoimage_current_phase( converter )
   desc  = "> phase_changed callback ["
   desc += ( phase + 1 ).to_s + '/' + LibWkHtmlToImage.wkhtmltoimage_phase_count( converter ).to_s
   desc += "]: " + String.new( LibWkHtmlToImage.wkhtmltoimage_phase_description( converter, phase ) )
   puts desc
 end
-LibWkHtmlToImage.wkhtmltoimage_set_progress_changed_callback c, ->( converter : Void*, param : LibC::Int ) do
+LibWkHtmlToImage.wkhtmltoimage_set_progress_changed_callback c, ->( converter : LibWkHtmlToImage::WkhtmltoimageConverter, param : LibC::Int ) do
   puts "> progress_changed callback (#{param}): " + String.new( LibWkHtmlToImage.wkhtmltoimage_progress_string( converter ) )
 end
-LibWkHtmlToImage.wkhtmltoimage_set_finished_callback c, ->( converter : Void*, param : LibC::Int ) do
+LibWkHtmlToImage.wkhtmltoimage_set_finished_callback c, ->( converter : LibWkHtmlToImage::WkhtmltoimageConverter, param : LibC::Int ) do
   puts "> finished callback (#{param})"
 end
 

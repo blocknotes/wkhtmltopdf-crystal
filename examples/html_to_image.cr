@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkImage wrapper to render an HTML string to image
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 html = <<-END
 <h1>Lorem!</h1>
@@ -11,7 +11,7 @@ html = <<-END
 END
 
 img = Wkhtmltopdf::WkImage.new
-img.set_output "test.png"
+img.set_output "html_to_image.png"
 
 ## The output format to use, must be either "", "jpg", "png", "bmp" or "svg":
 img.set "fmt", "png"

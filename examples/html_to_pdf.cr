@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using WkPdf wrapper to render an HTML string to PDF
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 html = <<-END
 <h1>Lorem!</h1>
@@ -11,5 +11,5 @@ html = <<-END
 END
 
 pdf = Wkhtmltopdf::WkPdf.new
-pdf.set_output "test.pdf"
+pdf.set_output "html_to_pdf.pdf"
 pdf.convert html

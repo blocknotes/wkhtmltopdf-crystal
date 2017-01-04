@@ -3,7 +3,7 @@
 # Author:      Mat
 # Description: Using LibWkHtmlToPdf directly
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
 puts "[Begin]"
 puts "- Version: " + String.new( LibWkHtmlToPdf.wkhtmltopdf_version )
@@ -15,7 +15,7 @@ gs = LibWkHtmlToPdf.wkhtmltopdf_create_global_settings
 # LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "quality", "90"
 # LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "screenWidth", "2048"
 # LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "in", "http://www.google.com/"
-LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "out", "out.pdf"
+LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "out", "lib_pdf.pdf"
 LibWkHtmlToPdf.wkhtmltopdf_set_global_setting gs, "dpi", "300"
 
 os = LibWkHtmlToPdf.wkhtmltopdf_create_object_settings
@@ -26,23 +26,23 @@ LibWkHtmlToPdf.wkhtmltopdf_set_object_setting os, "page", "http://www.google.com
 c = LibWkHtmlToPdf.wkhtmltopdf_create_converter gs
 
 # Callbacks
-LibWkHtmlToPdf.wkhtmltopdf_set_warning_callback c, ->( converter : Void*, param : LibC::Char* ) do
+LibWkHtmlToPdf.wkhtmltopdf_set_warning_callback c, ->( converter : LibWkHtmlToPdf::WkhtmltopdfConverter, param : LibC::Char* ) do
   puts "> warning callback (#{param}): " + String.new( param )
 end
-LibWkHtmlToPdf.wkhtmltopdf_set_error_callback c, ->( converter : Void*, param : LibC::Char* ) do
+LibWkHtmlToPdf.wkhtmltopdf_set_error_callback c, ->( converter : LibWkHtmlToPdf::WkhtmltopdfConverter, param : LibC::Char* ) do
   puts "> error callback (#{param}): " + String.new( param )
 end
-LibWkHtmlToPdf.wkhtmltopdf_set_phase_changed_callback c, ->( converter : Void* ) do
+LibWkHtmlToPdf.wkhtmltopdf_set_phase_changed_callback c, ->( converter : LibWkHtmlToPdf::WkhtmltopdfConverter ) do
   phase = LibWkHtmlToPdf.wkhtmltopdf_current_phase( converter )
   desc  = "> phase_changed callback ["
   desc += ( phase + 1 ).to_s + '/' + LibWkHtmlToPdf.wkhtmltopdf_phase_count( converter ).to_s
   desc += "]: " + String.new( LibWkHtmlToPdf.wkhtmltopdf_phase_description( converter, phase ) )
   puts desc
 end
-LibWkHtmlToPdf.wkhtmltopdf_set_progress_changed_callback c, ->( converter : Void*, param : LibC::Int ) do
-  puts "> progress_changed callback (#{param}): " + String.new( LibWkHtmlToImage.wkhtmltoimage_progress_string( converter ) )
+LibWkHtmlToPdf.wkhtmltopdf_set_progress_changed_callback c, ->( converter : LibWkHtmlToPdf::WkhtmltopdfConverter, param : LibC::Int ) do
+  puts "> progress_changed callback (#{param}): " + String.new( LibWkHtmlToPdf.wkhtmltopdf_progress_string( converter ) )
 end
-LibWkHtmlToPdf.wkhtmltopdf_set_finished_callback c, ->( converter : Void*, param : LibC::Int ) do
+LibWkHtmlToPdf.wkhtmltopdf_set_finished_callback c, ->( converter : LibWkHtmlToPdf::WkhtmltopdfConverter, param : LibC::Int ) do
   puts "> finished callback (#{param})"
 end
 

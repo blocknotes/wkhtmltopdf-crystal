@@ -3,9 +3,9 @@
 # Author:      Mat
 # Description: Using WkPdf wrapper to render a page from URL to PDF
 # ---------------------------------------------------------------------------- #
-require "wkhtmltopdf-crystal"
+require "../wkhtmltopdf-crystal"
 
-pdf = Wkhtmltopdf::WkPdf.new "test.pdf"
+pdf = Wkhtmltopdf::WkPdf.new "url_content_to_pdf.pdf"
 pdf.set_url "https://crystal-lang.org"
 
 ## The title of the PDF document:
