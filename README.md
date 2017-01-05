@@ -19,7 +19,7 @@ dependencies:
     github: blocknotes/wkhtmltopdf-crystal
 ```
 
-- If wkhtmltox library is installed but missing for Crystal compiler: copy *wkhtmltox.pc* in a pkg-config folder (ex. /usr/local/lib/pkgconfig) or set the environment variable PKG_CONFIG_PATH with the path to *wkhtmltox.pc* before compiling
+- If wkhtmltox library is installed but missing for Crystal compiler: copy *wkhtmltox.pc* (in lib/wkhtmltopdf-crystal folder) in a pkg-config folder (ex. /usr/local/lib/pkgconfig) or set the environment variable PKG_CONFIG_PATH with the path to *wkhtmltox.pc* before compiling
 - Optinally edit *wkhtmltox.pc* with the correct path to wkhtmltox (default headers path: /usr/local/include/wkhtmltox)
 
 ## Usage
