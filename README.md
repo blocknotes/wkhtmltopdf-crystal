@@ -1,4 +1,4 @@
-# WkHtmlToPdf for Crystal [![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal)
+# WkHtmlToPdf for Crystal [![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal) [![crystal-docs.org](https://crystal-docs.org/badge.svg)](https://crystal-docs.org/blocknotes/wkhtmltopdf-crystal)
 
 Crystal wrapper for libwkhtmltox C library.
 
