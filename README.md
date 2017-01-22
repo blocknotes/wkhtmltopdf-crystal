@@ -27,14 +27,14 @@ dependencies:
 HTML to PDF:
 
 ```ruby
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 Wkhtmltopdf::WkPdf.new( "test.pdf" ).convert( "<h3>Just a test</h3>" )
 ```
 
 Fetch URL content and convert it to JPG:
 
 ```ruby
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 img = Wkhtmltopdf::WkImage.new
 img.set_url "http://www.google.com"
 img.set_output "test.jpg"
@@ -45,7 +45,7 @@ img.convert
 Write to buffer (only if no output is specified):
 
 ```ruby
-require "wkhtmltopdf"
+require "wkhtmltopdf-crystal"
 pdf = Wkhtmltopdf::WkPdf.new
 pdf.convert "<h3>Just a test</h3>"
 pdf.object_setting "footer.right", "[page] / [topage]" # Set page counter on footer
