@@ -6,9 +6,14 @@
 require "kemal"
 require "../wkhtmltopdf-crystal"
 
+pdf = Wkhtmltopdf::WkPdf.new "", true
+
+at_exit do
+  pdf.deinitialize
+end
+
 get "/" do |env|
   html = render "kemal_ecr_to_pdf.ecr"
-  pdf = Wkhtmltopdf::WkPdf.new
   pdf.convert html
   if( buf = pdf.buffer )
     env.response.content_type = "application/pdf"

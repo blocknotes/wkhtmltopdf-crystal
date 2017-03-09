@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.8
+- Fix to resolve invalid memory access when called multiple times
+
 ## 0.1.6
 - Internal improvements
 

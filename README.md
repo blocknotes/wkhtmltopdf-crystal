@@ -60,6 +60,29 @@ Lib settings (available with `set` / `object_setting` methods on wrappers): [lib
 
 See [examples](https://github.com/blocknotes/wkhtmltopdf-crystal/tree/master/examples) folder. Includes a Kemal example to print an ECR view in PDF.
 
+## Troubleshooting
+
+#### Invalid memory access
+
+- If this component needs to be called multiple times it's necessary to initialize the library in the constructor and call deinitialize when all is done.
+Example:
+
+```ruby
+require "wkhtmltopdf-crystal"
+pdf = Wkhtmltopdf::WkPdf.new "", true
+at_exit do
+  pdf.deinitialize
+end
+
+pdf.set_url "https://www.google.com"
+pdf.set_output "test1.pdf"
+pdf.convert "<h3>Just a test 1</h3>"
+
+pdf.set_url "https://www.google.it"
+pdf.set_output "test2.pdf"
+pdf.convert "<h3>Just a test 2</h3>"
+```
+
 ## Contributors
 
 - [Mattia Roccoberton](http://blocknot.es) - creator, maintainer

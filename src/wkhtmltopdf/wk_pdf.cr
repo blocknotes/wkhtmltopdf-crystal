@@ -12,7 +12,8 @@ module Wkhtmltopdf
     # Init default values
     #
     # - `path`: string with an output file path (extension included)
-    def initialize( path = "" )
+    def initialize( path = "", force_init = false )
+      LibWkHtmlToPdf.wkhtmltopdf_init( 0 ) if force_init
       set_output path
     end
 
@@ -59,10 +60,10 @@ module Wkhtmltopdf
     # Convert to PDF
     #
     # - `html`: HTML string used as content, if omitted (or nil) a URL to fetch is required (using `set_url`)
-    def convert( html = nil )
+    def convert( html = nil, do_init = true )
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
       # init
-      LibWkHtmlToPdf.wkhtmltopdf_init 0
+      LibWkHtmlToPdf.wkhtmltopdf_init( 0 ) if do_init
       if( g_settings = LibWkHtmlToPdf.wkhtmltopdf_create_global_settings )
         @glb_settings.each do |k, v|
           LibWkHtmlToPdf.wkhtmltopdf_set_global_setting g_settings, k, v
@@ -87,8 +88,13 @@ module Wkhtmltopdf
         end
         LibWkHtmlToPdf.wkhtmltopdf_destroy_global_settings g_settings
       end
-      LibWkHtmlToPdf.wkhtmltopdf_deinit
+      LibWkHtmlToPdf.wkhtmltopdf_deinit if do_init
       ret
+    end
+
+    # Deinitialize the library, required only if force_init option is used
+    def deinitialize
+      LibWkHtmlToPdf.wkhtmltopdf_deinit
     end
   end
 end
