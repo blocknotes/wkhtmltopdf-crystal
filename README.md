@@ -74,11 +74,9 @@ at_exit do
   pdf.deinitialize
 end
 
-pdf.set_url "https://www.google.com"
 pdf.set_output "test1.pdf"
 pdf.convert "<h3>Just a test 1</h3>"
 
-pdf.set_url "https://www.google.it"
 pdf.set_output "test2.pdf"
 pdf.convert "<h3>Just a test 2</h3>"
 ```
