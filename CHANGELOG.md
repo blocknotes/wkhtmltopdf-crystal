@@ -1,5 +1,8 @@
 # CHANGELOG
 
+## 0.1.9
+- Code formatting and minor improvements to the project structure
+
 ## 0.1.8
 - Fix to resolve invalid memory access when called multiple times
 

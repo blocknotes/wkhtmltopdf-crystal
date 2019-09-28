@@ -1,9 +1,9 @@
 name: wkhtmltopdf-crystal
-version: 0.1.8
+version: 0.1.9
 
 authors:
   - Mattia Roccoberton <mat@blocknot.es>
 
-crystal: 0.20.4
+crystal: 0.31.0
 
 license: MIT

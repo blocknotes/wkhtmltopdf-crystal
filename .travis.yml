@@ -1,8 +1,13 @@
 language: crystal
 
 before_install:
-  - sudo apt-get install xfonts-75dpi -y
-  - wget http://download.gna.org/wkhtmltopdf/0.12/0.12.2.1/wkhtmltox-0.12.2.1_linux-precise-amd64.deb
-  - sudo dpkg -i wkhtmltox-0.12.2.1_linux-precise-amd64.deb
+  - sudo apt-get install xfonts-base xfonts-75dpi -y
+  - wget https://downloads.wkhtmltopdf.org/0.12/0.12.5/wkhtmltox_0.12.5-1.xenial_amd64.deb
+  - sudo dpkg -i wkhtmltox_0.12.5-1.xenial_amd64.deb
   - sudo ldconfig
   - export PKG_CONFIG_PATH="$TRAVIS_BUILD_DIR/wkhtmltopdf-crystal"
+
+# Uncomment the following if you'd like Travis to run specs and check code formatting
+# script:
+#   - crystal spec
+#   - crystal tool format --check

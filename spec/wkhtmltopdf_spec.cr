@@ -9,11 +9,11 @@ END
   it "should convert HTML to PDF" do
     output = "/tmp/test.pdf"
     File.delete output rescue nil
-    wk = Wkhtmltopdf::WkPdf.new( output )
+    wk = Wkhtmltopdf::WkPdf.new(output)
     ret = wk.convert html
-    ret.should eq( 1 )
-    File.file?( output ).should be_true
-    ( File.size( output ) > 0 ).should be_true
+    ret.should eq(1)
+    File.file?(output).should be_true
+    (File.size(output) > 0).should be_true
   end
 
   it "should convert HTML to JPG" do
@@ -22,8 +22,8 @@ END
     wk = Wkhtmltopdf::WkImage.new output
     wk.set "quality", "75"
     ret = wk.convert html
-    ret.should eq( 1 )
-    File.file?( output ).should be_true
-    ( File.size( output ) > 0 ).should be_true
+    ret.should eq(1)
+    File.file?(output).should be_true
+    (File.size(output) > 0).should be_true
   end
 end

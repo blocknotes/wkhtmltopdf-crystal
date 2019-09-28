@@ -1,9 +1,9 @@
 module Wkhtmltopdf
   class WkImage
     # Output formats available
-    FORMATS = [ "jpg", "png", "bmp", "svg" ]
+    FORMATS = ["jpg", "png", "bmp", "svg"]
 
-    @glb_settings = Hash( String, String ).new
+    @glb_settings = Hash(String, String).new
     @out = ""
     @url = ""
     @buffer = nil
@@ -14,7 +14,7 @@ module Wkhtmltopdf
     # Init default values
     #
     # - `path`: string with an output file path (extension included)
-    def initialize( path = "" )
+    def initialize(path = "")
       @glb_settings["fmt"] = "jpg"
       set_output path
     end
@@ -25,7 +25,7 @@ module Wkhtmltopdf
     # - `value`: string with setting value
     #
     # NOTE: for available settings see [pagePdfObject](http://wkhtmltopdf.org/libwkhtmltox/pagesettings.html#pageImageGlobal)
-    def set( key : String, value : String )
+    def set(key : String, value : String)
       case key
       when "fmt"
         @glb_settings[key] = value if FORMATS.includes? value
@@ -40,7 +40,7 @@ module Wkhtmltopdf
     # Set output path
     #
     # - `path`: string with an output file path (extension included)
-    def set_output( path : String )
+    def set_output(path : String)
       unless path.empty?
         @out = path
         set "out", path
@@ -50,7 +50,7 @@ module Wkhtmltopdf
     # Set URL to fetch content from
     #
     # - `url`: string with a complete URL (schema included)
-    def set_url( url : String )
+    def set_url(url : String)
       unless url.empty?
         @url = url
         set "in", url
@@ -60,26 +60,26 @@ module Wkhtmltopdf
     # Convert to image
     #
     # - `html`: HTML string used as content, if omitted (or nil) a URL to fetch is required (using `set_url`)
-    def convert( html = nil )
+    def convert(html = nil)
       raise "No URL or HTML data specified" if @url.empty? && html.nil?
-      ## init
+      # # init
       LibWkHtmlToImage.wkhtmltoimage_init 0
-      if( settings = LibWkHtmlToImage.wkhtmltoimage_create_global_settings )
+      if (settings = LibWkHtmlToImage.wkhtmltoimage_create_global_settings)
         @glb_settings.each do |k, v|
           LibWkHtmlToImage.wkhtmltoimage_set_global_setting settings, k, v
         end
-        if( converter = LibWkHtmlToImage.wkhtmltoimage_create_converter settings, html )
-          ## convert
-          ret = LibWkHtmlToImage.wkhtmltoimage_convert( converter )
+        if (converter = LibWkHtmlToImage.wkhtmltoimage_create_converter settings, html)
+          # # convert
+          ret = LibWkHtmlToImage.wkhtmltoimage_convert(converter)
           if ret > 0 && @out.empty?
             # Copy data in buffer
-            len = LibWkHtmlToImage.wkhtmltoimage_get_output( converter, out data )
-            @buffer = Slice( UInt8 ).new( data, len )
+            len = LibWkHtmlToImage.wkhtmltoimage_get_output(converter, out data)
+            @buffer = Slice(UInt8).new(data, len)
           end
           LibWkHtmlToImage.wkhtmltoimage_destroy_converter converter
         end
       end
-      ## deinit
+      # # deinit
       LibWkHtmlToImage.wkhtmltoimage_deinit
       ret
     end

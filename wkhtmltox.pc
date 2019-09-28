@@ -6,6 +6,6 @@ includedir=${prefix}/include/wkhtmltox
 Name: wkhtmltox
 Description: wkhtmltopdf and wkhtmltoimage permits to render HTML into PDF and various image formats
 URL: http://wkhtmltopdf.org/libwkhtmltox
-Version: 0.12.3
+Version: 0.12.5
 Libs: -L${libdir} -lwkhtmltox
 Cflags: -I${includedir}
