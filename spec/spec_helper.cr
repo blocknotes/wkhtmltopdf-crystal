@@ -1,2 +1,2 @@
 require "spec"
-require "../wkhtmltopdf-crystal"
+require "../src/wkhtmltopdf-crystal"
