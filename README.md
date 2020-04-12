@@ -1,4 +1,11 @@
-# WkHtmlToPdf for Crystal [![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal)
+# WkHtmlToPdf for Crystal - PROJECT UNMAINTAINED [![Build Status](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal.svg)](https://travis-ci.org/blocknotes/wkhtmltopdf-crystal)
+
+> *This project is not maintained anymore*
+>
+> *If you like it or continue to use it fork it please.*
+
+* * *
+* * *
 
 Crystal wrapper for libwkhtmltox C library.
 
